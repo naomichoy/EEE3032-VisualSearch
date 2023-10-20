@@ -20,11 +20,14 @@
 close all;
 clear all;
 
+windows='C:\Users\cat97\Documents\UniofSurrey\sem1\EEE3032-CVPR\coursework\';
+linux='~/cvprlab/';
+
 %% Edit the following line to the folder you unzipped the MSRCv2 dataset to
-DATASET_FOLDER = '~/cvprlab/msrc_objcategimagedatabase_v2/MSRC_ObjCategImageDatabase_v2';
+DATASET_FOLDER = strcat(windows, 'msrc_objcategimagedatabase_v2/MSRC_ObjCategImageDatabase_v2');
 
 %% Folder that holds the results...
-DESCRIPTOR_FOLDER = '~/cvprlab/descriptors';
+DESCRIPTOR_FOLDER = strcat(windows, 'descriptors');
 %% and within that folder, another folder to hold the descriptors
 %% we are interested in working with
 DESCRIPTOR_SUBFOLDER='globalRGBhisto';

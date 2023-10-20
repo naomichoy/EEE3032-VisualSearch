@@ -14,11 +14,14 @@
 close all;
 clear all;
 
+windows='C:\Users\cat97\Documents\UniofSurrey\sem1\EEE3032-CVPR\coursework\';
+linux='~/cvprlab/';
+
 %% Edit the following line to the folder you unzipped the MSRCv2 dataset to
-DATASET_FOLDER = '~/cvprlab/msrc_objcategimagedatabase_v2/MSRC_ObjCategImageDatabase_v2';
+DATASET_FOLDER = strcat(windows,'msrc_objcategimagedatabase_v2/MSRC_ObjCategImageDatabase_v2');
 
 %% Create a folder to hold the results...
-OUT_FOLDER = '~/cvprlab/descriptors';
+OUT_FOLDER = strcat(windows, 'descriptors');
 %% and within that folder, create another folder to hold these descriptors
 %% the idea is all your descriptors are in individual folders - within
 %% the folder specified as 'OUT_FOLDER'.
