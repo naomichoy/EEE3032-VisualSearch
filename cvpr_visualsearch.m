@@ -60,7 +60,7 @@ for i=1:NIMG
     candidate=ALLFEAT(i,:);
     query=ALLFEAT(queryimg,:);
     
-    %% change visual search method here
+    %% change visual search distance method here
     thedst=cvpr_compare(query,candidate);
     dst=[dst ; [thedst i]];
 end

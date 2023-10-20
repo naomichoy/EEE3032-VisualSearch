@@ -20,3 +20,4 @@ function H=ComputeRGBHistogram(img,Q)
 % It is convenient to normalise the histogram, so the area under it sum
 % to 1.
     H = H ./sum(H);
+return;
