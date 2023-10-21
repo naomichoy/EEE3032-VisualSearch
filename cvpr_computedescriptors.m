@@ -33,9 +33,17 @@ for filenum=1:length(allfiles)
     fprintf('Processing file %d/%d - %s\n',filenum,length(allfiles),fname);
     tic;
     imgfname_full=([DATASET_FOLDER,'/Images/',fname]);
-    img=double(imread(imgfname_full))./255;
     fout=[OUT_FOLDER,'/',OUT_SUBFOLDER,'/',fname(1:end-4),'.mat'];%replace .bmp with .mat
-    F=extractRandom(img);
+    
+    %% random extract
+    % img=double(imread(imgfname_full))./255;
+    % F=extractRandom(img);
+
+    %% RGBHisto
+    img = imread(imgfname_full);
+    Q=4;
+    F=ComputeRGBHistogram(img,Q);
+
     save(fout,'F');
     toc
 end

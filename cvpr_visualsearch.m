@@ -63,17 +63,22 @@ for i=1:NIMG
     candidate=ALLFEAT(i,:);
     query=ALLFEAT(queryimg,:);
     
-    %% change visual search distance method here
+    % change visual search distance method here
     thedst=cvpr_compare(query,candidate);
     dst=[dst ; [thedst i]];
 end
 dst=sortrows(dst,1);  % sort the results
 
+%% calculate PR
+
+
+
+
 %% 4) Visualise the results
 %% These may be a little hard to see using imgshow
 %% If you have access, try using imshow(outdisplay) or imagesc(outdisplay)
 
-SHOW=15; % Show top 15 results
+SHOW=10; % Show top 15 results
 dst=dst(1:SHOW,:);
 outdisplay=[];
 for i=1:size(dst,1)
@@ -82,5 +87,6 @@ for i=1:size(dst,1)
    img=img(1:81,:,:); % crop image to uniform size vertically (some MSVC images are different heights)
    outdisplay=[outdisplay img];
 end
-imgshow(outdisplay);
+%imgshow(outdisplay);
+imagesc(outdisplay);
 axis off;
