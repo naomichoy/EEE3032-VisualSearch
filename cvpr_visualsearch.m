@@ -24,10 +24,10 @@ windows='C:\Users\cat97\Documents\UniofSurrey\sem1\EEE3032-CVPR\coursework\';
 linux='~/cvprlab/';
 
 %% Edit the following line to the folder you unzipped the MSRCv2 dataset to
-DATASET_FOLDER = strcat(windows, 'msrc_objcategimagedatabase_v2/MSRC_ObjCategImageDatabase_v2');
+DATASET_FOLDER = strcat(linux, 'msrc_objcategimagedatabase_v2/MSRC_ObjCategImageDatabase_v2');
 
 %% Folder that holds the results...
-DESCRIPTOR_FOLDER = strcat(windows, 'descriptors');
+DESCRIPTOR_FOLDER = strcat(linux, 'descriptors');
 %% and within that folder, another folder to hold the descriptors
 %% we are interested in working with
 DESCRIPTOR_SUBFOLDER='globalRGBhisto';
@@ -55,7 +55,7 @@ end
 %% 2) Pick an image at random to be the query
 NIMG=size(ALLFEAT,1);           % number of images in collection
 queryimg=floor(rand()*NIMG);    % index of a random image
-
+qurey_row_num=floor(queryimg/30); % row num for GT, read ClickMe.html
 
 %% 3) Compute the distance of image to the query
 dst=[];
@@ -87,6 +87,6 @@ for i=1:size(dst,1)
    img=img(1:81,:,:); % crop image to uniform size vertically (some MSVC images are different heights)
    outdisplay=[outdisplay img];
 end
-%imgshow(outdisplay);
-imagesc(outdisplay);
+imgshow(outdisplay);
+% imagesc(outdisplay);
 axis off;
