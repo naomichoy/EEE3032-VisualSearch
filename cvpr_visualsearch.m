@@ -40,8 +40,13 @@ ALLFEAT=[];
 ALLFILES=cell(1,0);
 ctr=1;
 allfiles=dir (fullfile([DATASET_FOLDER,'/Images/*.bmp']));
+allfiles_rownum=[length(allfiles)];
 for filenum=1:length(allfiles)
     fname=allfiles(filenum).name;
+    row_num=split(fname,"_");
+    row_num=str2num(row_num{1});
+    allfiles_rownum(filenum)=row_num;
+
     imgfname_full=([DATASET_FOLDER,'/Images/',fname]);
     img=double(imread(imgfname_full))./255;
     thesefeat=[];
@@ -55,7 +60,9 @@ end
 %% 2) Pick an image at random to be the query
 NIMG=size(ALLFEAT,1);           % number of images in collection
 queryimg=floor(rand()*NIMG);    % index of a random image
-qurey_row_num=floor(queryimg/30); % row num for GT, read ClickMe.html
+fname=allfiles(queryimg).name;
+qurey_row_num = split(fname,"_"); % row num for GT, read ClickMe.html
+qurey_row_num = str2num(qurey_row_num{1});
 
 %% 3) Compute the distance of image to the query
 dst=[];
@@ -68,10 +75,6 @@ for i=1:NIMG
     dst=[dst ; [thedst i]];
 end
 dst=sortrows(dst,1);  % sort the results
-
-%% calculate PR
-
-
 
 
 %% 4) Visualise the results
@@ -87,6 +90,35 @@ for i=1:size(dst,1)
    img=img(1:81,:,:); % crop image to uniform size vertically (some MSVC images are different heights)
    outdisplay=[outdisplay img];
 end
+
 imgshow(outdisplay);
 % imagesc(outdisplay);
 axis off;
+
+%% calculate PR
+pr=[10];
+recall=[10];
+pr_count=0;
+recall_count=0;
+total_relavant = sum(allfiles_rownum==qurey_row_num);
+for i=1:length(dst)
+    inum=dst(i,2);
+    fname=allfiles(inum).name;
+    irow_num=split(fname,"_");
+    irow_num = str2num(irow_num{1});
+    if irow_num == qurey_row_num
+        pr_count=pr_count+1;
+        recall_count=recall_count+1;
+    end
+    pr(i) = 0;
+    pr(i) = pr_count / length(pr);
+    recall(i) = recall_count / total_relavant;
+end 
+
+% plot pr recall curve
+figure;
+plot(recall, pr);
+xlabel('Recall');
+ylabel('Precision');
+title('Precision-Recall RGBHistogram')
+
