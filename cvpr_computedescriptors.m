@@ -25,8 +25,9 @@ OUT_FOLDER = strcat(windows, 'descriptors');
 %% and within that folder, create another folder to hold these descriptors
 %% the idea is all your descriptors are in individual folders - within
 %% the folder specified as 'OUT_FOLDER'.
-choices=["globalRGBhisto", "spatialGridColour"];
-OUT_SUBFOLDER=choices{2};
+choices=["globalRGBhisto", "spatialGridColour", "EOH"];
+choice_num = 3;
+OUT_SUBFOLDER=choices{choice_num};
 
 allfiles=dir (fullfile([DATASET_FOLDER,'/Images/*.bmp']));
 for filenum=1:length(allfiles)
@@ -40,16 +41,27 @@ for filenum=1:length(allfiles)
     % img=double(imread(imgfname_full))./255;
     % F=extractRandom(img);
 
-    %% RGBHisto
-%     img = imread(imgfname_full);
-%     Q=4;
-%     F=ComputeRGBHistogram(img,Q);
+    switch choice_num
+        case 1
+            %% RGBHisto
+            img = imread(imgfname_full);
+            Q=4;
+            F=ComputeRGBHistogram(img,Q);
 
-    %% colour grid
-    img=double(imread(imgfname_full))./255;
-    cell_size = 4;
-    F = spatialGrid(img, cell_size);
+        case 2
+            %% colour grid
+            img=double(imread(imgfname_full))./255;
+            cell_size = 4;
+            F = spatialGrid(img, cell_size);
 
+        case 3
+            %% EOH
+            img=double(imread(imgfname_full))./255;
+            cell_size = 4;
+            Q = 8;
+            F = eoh(img, cell_size, Q);
+    end
+    
     save(fout,'F');
     toc
 end

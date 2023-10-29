@@ -30,8 +30,9 @@ DATASET_FOLDER = strcat(windows, 'msrc_objcategimagedatabase_v2/MSRC_ObjCategIma
 DESCRIPTOR_FOLDER = strcat(windows, 'descriptors');
 %% and within that folder, another folder to hold the descriptors
 %% we are interested in working with
-choices=["globalRGBhisto", "spatialGridColour"];
-DESCRIPTOR_SUBFOLDER=choices{2};
+choices=["globalRGBhisto", "spatialGridColour", "EOH"];
+choice_num = 3;
+DESCRIPTOR_SUBFOLDER=choices{choice_num};
 
 
 %% 1) Load all the descriptors into "ALLFEAT"
@@ -121,5 +122,5 @@ figure;
 plot(recall, pr);
 xlabel('Recall');
 ylabel('Precision');
-title('Precision-Recall RGBHistogram')
+title(strcat('Precision-Recall', choices{choice_num}));
 
