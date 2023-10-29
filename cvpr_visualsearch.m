@@ -24,13 +24,14 @@ windows='C:\Users\cat97\Documents\UniofSurrey\sem1\EEE3032-CVPR\coursework\';
 linux='~/cvprlab/';
 
 %% Edit the following line to the folder you unzipped the MSRCv2 dataset to
-DATASET_FOLDER = strcat(linux, 'msrc_objcategimagedatabase_v2/MSRC_ObjCategImageDatabase_v2');
+DATASET_FOLDER = strcat(windows, 'msrc_objcategimagedatabase_v2/MSRC_ObjCategImageDatabase_v2');
 
 %% Folder that holds the results...
-DESCRIPTOR_FOLDER = strcat(linux, 'descriptors');
+DESCRIPTOR_FOLDER = strcat(windows, 'descriptors');
 %% and within that folder, another folder to hold the descriptors
 %% we are interested in working with
-DESCRIPTOR_SUBFOLDER='globalRGBhisto';
+choices=["globalRGBhisto", "spatialGridColour"];
+DESCRIPTOR_SUBFOLDER=choices{2};
 
 
 %% 1) Load all the descriptors into "ALLFEAT"
@@ -81,7 +82,7 @@ dst=sortrows(dst,1);  % sort the results
 %% These may be a little hard to see using imgshow
 %% If you have access, try using imshow(outdisplay) or imagesc(outdisplay)
 
-SHOW=10; % Show top 15 results
+SHOW=10; % Show top 10 results
 dst=dst(1:SHOW,:);
 outdisplay=[];
 for i=1:size(dst,1)
@@ -91,8 +92,8 @@ for i=1:size(dst,1)
    outdisplay=[outdisplay img];
 end
 
-imgshow(outdisplay);
-% imagesc(outdisplay);
+% imgshow(outdisplay);
+imagesc(outdisplay);
 axis off;
 
 %% calculate PR

@@ -18,14 +18,15 @@ windows='C:\Users\cat97\Documents\UniofSurrey\sem1\EEE3032-CVPR\coursework\';
 linux='~/cvprlab/';
 
 %% Edit the following line to the folder you unzipped the MSRCv2 dataset to
-DATASET_FOLDER = strcat(linux,'msrc_objcategimagedatabase_v2/MSRC_ObjCategImageDatabase_v2');
+DATASET_FOLDER = strcat(windows,'msrc_objcategimagedatabase_v2/MSRC_ObjCategImageDatabase_v2');
 
 %% Create a folder to hold the results...
-OUT_FOLDER = strcat(linux, 'descriptors');
+OUT_FOLDER = strcat(windows, 'descriptors');
 %% and within that folder, create another folder to hold these descriptors
 %% the idea is all your descriptors are in individual folders - within
 %% the folder specified as 'OUT_FOLDER'.
-OUT_SUBFOLDER='globalRGBhisto';
+choices=["globalRGBhisto", "spatialGridColour"];
+OUT_SUBFOLDER=choices{2};
 
 allfiles=dir (fullfile([DATASET_FOLDER,'/Images/*.bmp']));
 for filenum=1:length(allfiles)
@@ -40,9 +41,14 @@ for filenum=1:length(allfiles)
     % F=extractRandom(img);
 
     %% RGBHisto
-    img = imread(imgfname_full);
-    Q=4;
-    F=ComputeRGBHistogram(img,Q);
+%     img = imread(imgfname_full);
+%     Q=4;
+%     F=ComputeRGBHistogram(img,Q);
+
+    %% colour grid
+    img=double(imread(imgfname_full))./255;
+    cell_size = 4;
+    F = spatialGrid(img, cell_size);
 
     save(fout,'F');
     toc
