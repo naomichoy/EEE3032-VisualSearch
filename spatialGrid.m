@@ -8,15 +8,15 @@ numCols = sz; % Number of columns in the grid
 cellHeight = floor(height / numRows);
 cellWidth = floor(width / numCols);
 
-% Calculate the padding required to ensure even division
-padHeight = numRows * cellHeight - height;
-padWidth = numCols * cellWidth - width;
-
-% Pad the image if necessary
-if padHeight > 0 || padWidth > 0
-    img = padarray(img, [padHeight, padWidth], 'post');
-    [height, width, channel] = size(img);
-end
+% % Calculate the padding required to ensure even division
+% padHeight = numRows * cellHeight - height;
+% padWidth = numCols * cellWidth - width;
+% 
+% % Pad the image if necessary
+% if padHeight > 0 || padWidth > 0
+%     img = padarray(img, [padHeight, padWidth], 'post');
+%     [height, width, channel] = size(img);
+% end
 
 G = [];
 
