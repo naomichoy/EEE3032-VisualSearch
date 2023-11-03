@@ -24,14 +24,14 @@ windows='C:\Users\cat97\Documents\UniofSurrey\sem1\EEE3032-CVPR\coursework\';
 linux='~/cvprlab/';
 
 %% Edit the following line to the folder you unzipped the MSRCv2 dataset to
-DATASET_FOLDER = strcat(windows, 'msrc_objcategimagedatabase_v2/MSRC_ObjCategImageDatabase_v2');
+DATASET_FOLDER = strcat(linux, 'msrc_objcategimagedatabase_v2/MSRC_ObjCategImageDatabase_v2');
 
 %% Folder that holds the results...
-DESCRIPTOR_FOLDER = strcat(windows, 'descriptors');
+DESCRIPTOR_FOLDER = strcat(linux, 'descriptors');
 %% and within that folder, another folder to hold the descriptors
 %% we are interested in working with
 choices=["globalRGBhisto", "spatialGridColour", "EOH"];
-choice_num = 3;
+choice_num = 1;
 DESCRIPTOR_SUBFOLDER=choices{choice_num};
 
 
@@ -73,8 +73,13 @@ for i=1:NIMG
     query=ALLFEAT(queryimg,:);
     
     % change visual search distance method here
-    thedst=cvpr_compare(query,candidate);
-    dst=[dst ; [thedst i]];
+    % thedst=cvpr_compare(query,candidate);
+    % dst=[dst ; [thedst i]];
+
+
+    candidate_eigen = Eigen_PCA(candidate, 'keepn', 1)
+    query_eigen = Eigen_PCA(query, 'keepn', 1)
+
 end
 dst=sortrows(dst,1);  % sort the results
 
