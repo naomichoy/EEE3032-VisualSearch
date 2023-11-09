@@ -31,7 +31,7 @@ for i = 1:numRows
 
         % extract
         cellWindow = img(rowStart:rowEnd, colStart:colEnd, :);
-        cellFeatures = extractRandom(cellWindow);
+        cellFeatures = extractRandom(cellWindow); % R1G1B1R2G2B2 etc
 
         % concatenate
         G = [G, cellFeatures];
