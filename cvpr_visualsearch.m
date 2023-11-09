@@ -77,12 +77,10 @@ for i=1:NIMG
     
     % change visual search distance method here
 %     thedst=cvpr_compare(query,candidate);
-    thedst=mahalanobisDist();
-    dst=[dst ; [thedst i]];
+%     dst=[dst ; [thedst i]];
 
-
-%     [candidate_eigen, E] = Eigen_PCA(candidate, 'keepn', 1);
-%     query_eigen = Eigen_PCA(query, 'keepn', 1);
+    thedst=mahalanobisDist(candidate, E);
+    dst=[dst ; thedst];
 
 end
 dst=sortrows(dst,1);  % sort the results
