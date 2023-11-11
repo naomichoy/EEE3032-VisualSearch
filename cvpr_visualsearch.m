@@ -60,7 +60,17 @@ for filenum=1:length(allfiles)
 end
 
 %% build eigenmodel
-E = buildEigen(ALLFEAT);
+% E = buildEigen(ALLFEAT);
+% 
+% E = Eigen_Build(ALLFEAT);
+% E=Eigen_Deflate(E, "keepn", 10);
+% ALLFEATPCA=Eigen_Project(ALLFEAT',E);
+% 
+% ALLFEATPCA=ALLFEATPCA';
+
+[ALLFEATPCA,E] =Eigen_PCA(ALLFEAT', 'keepn', 5);
+ALLFEATPCA=ALLFEATPCA';
+
 
 %% 2) Pick an image at random to be the query
 NIMG=size(ALLFEAT,1);           % number of images in collection
@@ -79,8 +89,9 @@ for i=1:NIMG
 %     thedst=cvpr_compare(query,candidate);
 %     dst=[dst ; [thedst i]];
 
-    thedst=mahalanobisDist(candidate, E);
-    dst=[dst ; thedst];
+    thedst=mahalanobisDist(candidate, query, E);
+%     thedst=Eigen_Mahalanobis(candidate,E);
+    dst=[dst ; [thedst i]];
 
 end
 dst=sortrows(dst,1);  % sort the results
@@ -94,7 +105,7 @@ SHOW=10; % Show top 10 results
 dst=dst(1:SHOW,:);
 outdisplay=[];
 for i=1:size(dst,1)
-   img=imread(ALLFILES{dst(i,2)});
+   img=imread(ALLFILES{dst(i,end)});
    img=img(1:2:end,1:2:end,:); % make image a quarter size
    img=img(1:81,:,:); % crop image to uniform size vertically (some MSVC images are different heights)
    outdisplay=[outdisplay img];
@@ -110,8 +121,9 @@ recall=[10];
 pr_count=0;
 recall_count=0;
 total_relavant = sum(allfiles_rownum==qurey_row_num);
-for i=1:length(dst)
-    inum=dst(i,2);
+% len = size(dst,1)
+for i=1:size(dst,1)
+    inum=dst(i,end);
     fname=allfiles(inum).name;
     irow_num=split(fname,"_");
     irow_num = str2num(irow_num{1});
@@ -129,5 +141,6 @@ figure;
 plot(recall, pr);
 xlabel('Recall');
 ylabel('Precision');
-title(strcat('Precision-Recall', choices{choice_num}));
+axis([min(recall) max(recall) 0 max(pr)+0.05])
+title(strcat('Precision-Recall - ', choices{choice_num}));
 
