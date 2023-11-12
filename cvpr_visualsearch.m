@@ -30,8 +30,8 @@ DATASET_FOLDER = strcat(windows, 'msrc_objcategimagedatabase_v2/MSRC_ObjCategIma
 DESCRIPTOR_FOLDER = strcat(windows, 'descriptors');
 %% and within that folder, another folder to hold the descriptors
 %% we are interested in working with
-choices=["globalRGBhisto", "spatialGridColour", "EOH"];
-choice_num = 1;
+choices=["globalRGBhisto", "spatialGridColour", "EOH", "gridPlusEoh"];
+choice_num = 4;
 DESCRIPTOR_SUBFOLDER=choices{choice_num};
 
 
