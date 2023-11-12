@@ -87,10 +87,11 @@ for i=1:NIMG
     
     % change visual search distance method here
 %     thedst=cvpr_compare(query,candidate);
-%     dst=[dst ; [thedst i]];
+    thedst = l1_norm(query, candidate);
 
-    thedst=mahalanobisDist(candidate, query, E);
+%     thedst=mahalanobisDist(candidate, query, E);
 %     thedst=Eigen_Mahalanobis(candidate,E);
+
     dst=[dst ; [thedst i]];
 
 end
@@ -141,6 +142,6 @@ figure;
 plot(recall, pr);
 xlabel('Recall');
 ylabel('Precision');
-axis([min(recall) max(recall) 0 max(pr)+0.05])
+axis([min(recall)-0.01 max(recall)+0.01 0 max(pr)+0.05])
 title(strcat('Precision-Recall - ', choices{choice_num}));
 
