@@ -26,7 +26,7 @@ OUT_FOLDER = strcat(windows, 'descriptors');
 %% the idea is all your descriptors are in individual folders - within
 %% the folder specified as 'OUT_FOLDER'.
 choices=["globalRGBhisto", "spatialGridColour", "EOH", "gridPlusEoh", "LBP"];
-choice_num = 5;
+choice_num = 3;
 OUT_SUBFOLDER=choices{choice_num};
 
 allfiles=dir (fullfile([DATASET_FOLDER,'/Images/*.bmp']));
@@ -78,3 +78,12 @@ for filenum=1:length(allfiles)
     toc
 end
 
+if choice_num == 1 || choice_num == 3
+    binCenters = 1:length(F);
+    bar(binCenters, F);
+    xlabel('Value');
+    ylabel('Frequency');
+    title_txt = strcat('Histogram example of ', choices{choice_num});
+    title(title_txt);
+    grid on;
+end

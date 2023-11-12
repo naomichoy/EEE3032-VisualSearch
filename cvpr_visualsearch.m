@@ -74,10 +74,20 @@ ALLFEATPCA=ALLFEATPCA';
 
 %% 2) Pick an image at random to be the query
 NIMG=size(ALLFEAT,1);           % number of images in collection
-queryimg=floor(rand()*NIMG);    % index of a random image
+
+% random choose from full set
+% queryimg=floor(rand()*NIMG);    % index of a random image
+
+% one specific class
+ub = 90;
+lb = 65;
+queryimg=floor(rand()*(ub-lb) + lb);
+
+% process class number
 fname=allfiles(queryimg).name;
 qurey_row_num = split(fname,"_"); % row num for GT, read ClickMe.html
 qurey_row_num = str2num(qurey_row_num{1});
+
 
 %% 3) Compute the distance of image to the query
 dst=[];
