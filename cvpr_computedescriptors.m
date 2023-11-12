@@ -25,8 +25,8 @@ OUT_FOLDER = strcat(windows, 'descriptors');
 %% and within that folder, create another folder to hold these descriptors
 %% the idea is all your descriptors are in individual folders - within
 %% the folder specified as 'OUT_FOLDER'.
-choices=["globalRGBhisto", "spatialGridColour", "EOH", "gridPlusEoh"];
-choice_num = 4;
+choices=["globalRGBhisto", "spatialGridColour", "EOH", "gridPlusEoh", "LBP"];
+choice_num = 5;
 OUT_SUBFOLDER=choices{choice_num};
 
 allfiles=dir (fullfile([DATASET_FOLDER,'/Images/*.bmp']));
@@ -67,6 +67,11 @@ for filenum=1:length(allfiles)
             cell_size = 4;
             Q = 8;
             F = spatialGridPlusEoh(img, cell_size, Q);
+        case 5 
+            %% Local Binary Patterns
+            img=double(imread(imgfname_full))./255;
+            n = 8;
+            F = computeLBP(img, n);
     end
     
     save(fout,'F');

@@ -30,8 +30,8 @@ DATASET_FOLDER = strcat(windows, 'msrc_objcategimagedatabase_v2/MSRC_ObjCategIma
 DESCRIPTOR_FOLDER = strcat(windows, 'descriptors');
 %% and within that folder, another folder to hold the descriptors
 %% we are interested in working with
-choices=["globalRGBhisto", "spatialGridColour", "EOH", "gridPlusEoh"];
-choice_num = 4;
+choices=["globalRGBhisto", "spatialGridColour", "EOH", "gridPlusEoh", "LBP"];
+choice_num = 5;
 DESCRIPTOR_SUBFOLDER=choices{choice_num};
 
 
@@ -86,9 +86,9 @@ for i=1:NIMG
     query=ALLFEAT(queryimg,:);
     
     % change visual search distance method here
-%     thedst=cvpr_compare(query,candidate);
+    thedst=cvpr_compare(query,candidate);
 %     thedst = l1_norm(query, candidate);
-    thedst = cosineSim(candidate, query);
+%     thedst = cosineSim(candidate, query);
 
 %     thedst=mahalanobisDist(candidate, query, E);
 %     thedst=Eigen_Mahalanobis(candidate,E);
