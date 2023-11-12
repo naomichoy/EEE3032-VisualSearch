@@ -87,7 +87,8 @@ for i=1:NIMG
     
     % change visual search distance method here
 %     thedst=cvpr_compare(query,candidate);
-    thedst = l1_norm(query, candidate);
+%     thedst = l1_norm(query, candidate);
+    thedst = cosineSim(candidate, query);
 
 %     thedst=mahalanobisDist(candidate, query, E);
 %     thedst=Eigen_Mahalanobis(candidate,E);
