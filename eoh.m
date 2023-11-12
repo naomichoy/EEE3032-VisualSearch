@@ -21,7 +21,7 @@ for i = 1:numRows
            
         % get edges
         cellEdges = edge(img(rowStart:rowEnd, colStart:colEnd), 'Sobel');
-        H = histcounts(cellEdges(:), num_hist_bins, 'BinLimits', [-pi/2, pi/2]);
+        H = histcounts(cellEdges(:), num_hist_bins, 'BinLimits', [0, 2*pi]);
         H = H ./sum(H);
 
         G = [G, H];
