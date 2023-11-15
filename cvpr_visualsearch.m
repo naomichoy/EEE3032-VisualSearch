@@ -100,8 +100,8 @@ for i=1:NIMG
 %     thedst = l1_norm(query, candidate);
 %     thedst = cosineSim(candidate, query);
 
-%     thedst=mahalanobisDist(candidate, query, E);
-    thedst=Eigen_Mahalanobis(candidate,E);
+    thedst=mahalanobisDist(candidate, query, E);
+%     thedst=Eigen_Mahalanobis(candidate,E);
 
     dst=[dst ; [thedst i]];
 
