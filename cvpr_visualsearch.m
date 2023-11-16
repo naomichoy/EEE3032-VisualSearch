@@ -31,7 +31,7 @@ DESCRIPTOR_FOLDER = strcat(windows, 'descriptors');
 %% and within that folder, another folder to hold the descriptors
 %% we are interested in working with
 choices=["globalRGBhisto", "spatialGridColour", "EOH", "gridPlusEoh", "LBP"];
-choice_num = 1;
+choice_num = 5;
 DESCRIPTOR_SUBFOLDER=choices{choice_num};
 
 
@@ -79,8 +79,8 @@ NIMG=size(ALLFEAT,1);           % number of images in collection
 % queryimg=floor(rand()*NIMG);    % index of a random image
 
 % one specific class
-ub = 90;
-lb = 65;
+ub = 178;
+lb = 158;
 queryimg=floor(rand()*(ub-lb) + lb);
 
 % process class number
@@ -96,11 +96,11 @@ for i=1:NIMG
     query=ALLFEAT(queryimg,:);
     
     % change visual search distance method here
-%     thedst=cvpr_compare(query,candidate);
+    thedst=cvpr_compare(query,candidate);
 %     thedst = l1_norm(query, candidate);
 %     thedst = cosineSim(candidate, query);
 
-    thedst=mahalanobisDist(candidate, query, E);
+%     thedst=mahalanobisDist(candidate, query, E);
 %     thedst=Eigen_Mahalanobis(candidate,E);
 
     dst=[dst ; [thedst i]];
@@ -147,6 +147,13 @@ for i=1:size(dst,1)
     pr(i) = pr_count / length(pr);
     recall(i) = recall_count / total_relavant;
 end 
+
+ap = 0;
+for i=1:size(pr)
+    ap = ap + pr(i) * recall(i);
+end
+ap = ap/total_relavant
+
 
 % plot pr recall curve
 figure;
